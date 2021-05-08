@@ -8,7 +8,7 @@ import java.util.*;
 /**
  * @author zhaipz
  * @ClassName: BinaryTree
- * @Description: (这里用一句话描述这个类的作用)
+ * @Description: 二叉树
  * @date 2021/1/11 10:01
  */
 @Service
@@ -157,8 +157,8 @@ public class BinaryTree {
     /**
      * @Title: 构造二叉树
      * @Description: 根据前序、中序（前序、后序 || 后序、中序）构造二叉树
-     * @inParam root
-     * @return list
+     * @inParam  int[] preorder = {3,9,20,15,7} int[] inorder = {9,3,15,20,7}
+     * @return TreeNode
      * @throws
      */
     public static Map<Integer,Integer> midIndex = new HashMap<>();
@@ -458,11 +458,11 @@ public class BinaryTree {
 //        root.setRight(right);
 //        List<List<Integer>> list = levelOrder(root);
 //        System.out.println(list);
-//        //构造二叉树
-//        int[] preorder = {3,9,20,15,7};
-//        int[] inorder = {9,3,15,20,7};
-//        TreeNode root = buildTree(preorder,inorder);
-//        System.out.println(root);
+        //构造二叉树
+        int[] preorder = {3,9,20,15,7};
+        int[] inorder = {9,3,15,20,7};
+        TreeNode root = buildTree(preorder,inorder);
+        System.out.println(root);
         //序列化二叉树
 //        String se = serializer(root);
 //        System.out.println(se);
@@ -486,10 +486,10 @@ public class BinaryTree {
 //        TreeNode root2 = new TreeNode(6,left2,right2);
 //        System.out.println(binaryTreePaths(root2));
         //判断路径是否有目标值
-        TreeNode left3 = new TreeNode(2,new TreeNode(0),new TreeNode(4));
-        TreeNode right3 = new TreeNode(8,new TreeNode(7),new TreeNode(9));
-        TreeNode root3 = new TreeNode(6,left3,right3);
-        System.out.println(hasSumPath(root3,12));
-        System.out.println(pathSum(root3,12));
+//        TreeNode left3 = new TreeNode(2,new TreeNode(0),new TreeNode(4));
+//        TreeNode right3 = new TreeNode(8,new TreeNode(7),new TreeNode(9));
+//        TreeNode root3 = new TreeNode(6,left3,right3);
+//        System.out.println(hasSumPath(root3,12));
+//        System.out.println(pathSum(root3,12));
     }
 }

@@ -1,5 +1,6 @@
 package com.zhaipz.study.datastructure.service;
 
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
@@ -11,14 +12,18 @@ import java.util.*;
  * @date 2021/1/19 14:28
  */
 @Service
+@Slf4j
 public class DoublePointer {
     public static void main(String[] args) {
-        int[] nums = new int[]{0,1,2};
-        int x = threeSumClosest(nums,3);
+//        int[] nums = new int[]{0,1,2};
+//        int x = threeSumClosest(nums,3);
 //        System.out.println(x);
-        String s = "abcabcbb";
-        int l = lengthOfLongestSubstring(s);
-        System.out.println(x);
+//        String s = "abcabcbb";
+//        int l = lengthOfLongestSubstring(s);
+//        System.out.println(x);
+
+        log.info("最小覆盖子串：{}",minWindow("ADOBECODEBANC","ABC"));
+        log.info("最小覆盖子串：{}",minWindow("ab","a"));
     }
 
     /**
@@ -265,5 +270,54 @@ public class DoublePointer {
             res = Math.max(res, right - left);
         }
         return res;
+    }
+
+    /**
+     * @Title: 最小覆盖子串
+     * @Description: 给你一个字符串 s 、一个字符串 t 。返回 s 中涵盖 t 所有字符的最小子串。如果 s 中不存在涵盖 t 所有字符的子串，则返回空字符串 "" 。
+     * @inParam 字符串 s 、字符串 t
+     * @return s覆盖t的最小子串  如果 s 中存在这样的子串，入参保证它是唯一的答案。
+     * @throws
+     */
+    public static String minWindow(String s, String t) {
+
+        Map<Character,Integer> window = new HashMap<Character,Integer>();
+        Map<Character,Integer> need = new HashMap<Character,Integer>();
+        for(char c : t.toCharArray()){
+            need.put(c,need.getOrDefault(c,0)+1);
+        }
+        int left = 0,right = 0;
+        int vaild = 0;
+        int start = 0,len = Integer.MAX_VALUE;
+        while(right < s.length()){
+            char c = s.charAt(right);
+            right++;
+            if(need.containsKey(c)){
+                window.put(c,window.getOrDefault(c,0)+1);
+                if(window.get(c).equals(need.get(c)))
+                    vaild++;
+            }
+
+            while(vaild == need.size()){
+                if (right - left < len) {
+                    start = left;
+                    len = right - left;
+                }
+
+                // d 是将移出窗口的字符
+                char d = s.charAt(left);
+                // 左移窗口
+                left++;
+                // 进行窗口内数据的一系列更新
+                if (need.containsKey(d)) {
+                    if (window.get(d).equals(need.get(d)))
+                        vaild--;
+                        window.put(d,window.getOrDefault(d,0)-1);
+                }
+            }
+        }
+        log.info("开始索引：{}",start);
+        log.info("长度：{}",len);
+        return len == Integer.MAX_VALUE?"":s.substring(start,start + len);
     }
 }
