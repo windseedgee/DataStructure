@@ -1,6 +1,8 @@
 spring:
   application:
     name: zhaipz-datastructure
-
 logging:
-  level: info
+  level:
+    src.main: info
+server:
+  port: 8081
