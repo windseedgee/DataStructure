@@ -13,19 +13,21 @@ import java.util.*;
 @Slf4j
 public class Dfs {
     public static void main(String[] args) {
-//        List<List<Integer>> res = permute(new int[]{1,2,3});
-//        log.info("全排列：{}",res);
+        List<List<Integer>> res = permute(new int[]{1,2,3,4});
+        String x = res.get(8).toString().replace(",", "");
+
+        log.info("全排列：{}", x);
 //        List<List<String>> resQ = solveNQueens(4);
 //        log.info("N皇后：{}",resQ.size());
 //
-//        List<List<Integer>> resS = subsets(new int[]{1,2,3});
-//        log.info("无重复子集：{}",resS);
+        List<List<Integer>> resS = subsets(new int[]{1,2,2});
+        log.info("无重复子集：{}",resS);
 //
 //        List<List<Integer>> resC = combine(4,2);
 //        log.info("无重复组合：{}",resC);
 
-        List<String> resP = generateParenthesis(3);
-        log.info("有效括号：{}",resP);
+//        List<String> resP = generateParenthesis(3);
+//        log.info("有效括号：{}",resP);
     }
 
     /**

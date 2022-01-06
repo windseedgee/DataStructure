@@ -1,6 +1,8 @@
 package com.zhaipz.study.datastructure.service.tree;
 
-import com.zhaipz.study.datastructure.dao.TreeNode;
+import com.zhaipz.study.datastructure.dto.ListNode;
+import com.zhaipz.study.datastructure.dto.TreeNode;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
@@ -12,6 +14,7 @@ import java.util.*;
  * @date 2021/1/11 10:01
  */
 @Service
+@Slf4j
 public class BinaryTree {
     public static  List<Integer> preorderTraversal(TreeNode root) {
         List<Integer> list = new ArrayList<>();
@@ -305,6 +308,37 @@ public class BinaryTree {
         return isBalaceSerachTree(root.getLeft(),min,root)&&isBalaceSerachTree(root.getRight(),root,max);
     }
     /**
+     * @Title: 有序链表转换二叉搜索树
+     * @Description: 有序链表转换二叉搜索树
+     * @inParam root
+     * @return list
+     * @throws
+     */
+    static ListNode goalHead;
+    public static TreeNode sortedListToBST(ListNode head) {
+        goalHead = head;
+        int l = 0;
+        while(head != null){
+            ++l;
+            head = head.getNext();
+        }
+        return buildTree(0,l-1);
+    }
+
+    public static TreeNode buildTree(int left,int right){
+        if(left > right){
+            return null;
+        }
+
+        int mid = (left+right+1)/2;
+        TreeNode root = new TreeNode(0);
+        root.setLeft(buildTree(left,mid-1));
+        root.setVal(goalHead.getVal());
+        goalHead = goalHead.getNext();
+        root.setRight(buildTree(mid+1,right));
+        return root;
+    }
+    /**
      * @Title: 二叉树翻转
      * @Description: 翻转二叉树  镜像翻转
      * @inParam root
@@ -451,18 +485,18 @@ public class BinaryTree {
     }
     public static void main(String[] args) {
         //遍历二叉树
-//        TreeNode root = new TreeNode(1);
-//        TreeNode left = new TreeNode(3,new TreeNode(5),new TreeNode(4));
-//        TreeNode right = new TreeNode(2,new TreeNode(6),new TreeNode(7));
-//        root.setLeft(left);
-//        root.setRight(right);
-//        List<List<Integer>> list = levelOrder(root);
-//        System.out.println(list);
+        TreeNode root = new TreeNode(1);
+        TreeNode left = new TreeNode(2,new TreeNode(4),new TreeNode(5));
+        TreeNode right = new TreeNode(3,new TreeNode(6),new TreeNode(7));
+        root.setLeft(left);
+        root.setRight(right);
+        List<List<Integer>> list = levelOrder(root);
+        System.out.println(list);
         //构造二叉树
-        int[] preorder = {3,9,20,15,7};
-        int[] inorder = {9,3,15,20,7};
-        TreeNode root = buildTree(preorder,inorder);
-        System.out.println(root);
+//        int[] preorder = {3,9,20,15,7};
+//        int[] inorder = {9,3,15,20,7};
+//        TreeNode root = buildTree(preorder,inorder);
+//        System.out.println(root);
         //序列化二叉树
 //        String se = serializer(root);
 //        System.out.println(se);
@@ -491,5 +525,8 @@ public class BinaryTree {
 //        TreeNode root3 = new TreeNode(6,left3,right3);
 //        System.out.println(hasSumPath(root3,12));
 //        System.out.println(pathSum(root3,12));
+        //有序链表转换二叉搜索树
+//        ListNode test = new ListNode(-10,new ListNode(-3,new ListNode(0,new ListNode(5,new ListNode(9)))));
+//        System.out.println(sortedListToBST(test));
     }
 }

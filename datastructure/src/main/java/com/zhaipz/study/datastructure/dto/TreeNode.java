@@ -1,4 +1,4 @@
-package com.zhaipz.study.datastructure.dao;
+package com.zhaipz.study.datastructure.dto;
 
 import lombok.Data;
 

@@ -23,7 +23,7 @@ public class GaoPin {
 
 //        log.info("基本计算器结果:{}",calculate("(3 * (3+2) + (1+4))"));
 
-        log.info("最长回文子串:{}",longestPalindrome("cbbd"));
+        log.info("最长回文子串:{}",longestPalindrome("babad"));
     }
 
     /**

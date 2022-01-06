@@ -18,8 +18,8 @@ public class DoublePointer {
 //        int[] nums = new int[]{0,1,2};
 //        int x = threeSumClosest(nums,3);
 //        System.out.println(x);
-//        String s = "abcabcbb";
-//        int l = lengthOfLongestSubstring(s);
+        String s = "abcabcbb";
+        int l = lengthOfLongestSubstring(s);
 //        System.out.println(x);
 
         log.info("最小覆盖子串：{}",minWindow("ADOBECODEBANC","ABC"));
@@ -28,7 +28,7 @@ public class DoublePointer {
 
     /**
     * @Title: 双指针
-    * @Description: 两数之和
+    * @Description: 两数之和 哈希表实现  记录每次的结果
     * @inParam 数组 目标值
     * @return 下标
     * @throws
@@ -48,7 +48,7 @@ public class DoublePointer {
 
     /**
      * @Title: 双指针
-     * @Description: 两数之和
+     * @Description: 两数之和  双指针实现
      * @inParam 有序数组 目标值
      * @return 下标
      * @throws
