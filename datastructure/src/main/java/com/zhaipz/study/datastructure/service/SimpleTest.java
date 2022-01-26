@@ -2,6 +2,8 @@ package com.zhaipz.study.datastructure.service;
 
 import lombok.extern.slf4j.Slf4j;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.*;
 
 /**
@@ -25,12 +27,28 @@ public class SimpleTest {
 //        colorChoose(d);
 //
 //        log.info("结果{}",d);
-        int i = 0;
-        i++;
-        boolean[] res = new boolean[2];
-        int a = Integer.MAX_VALUE,b = Integer.MAX_VALUE;
 
-        System.out.println(Double.parseDouble("23800"));
+        DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyyMMddHHmmss");
+        LocalDateTime localDateTime = LocalDateTime.now();
+        System.out.println(dateTimeFormatter.format(localDateTime));
+        int a = Integer.MAX_VALUE,b = Integer.MAX_VALUE;
+        int[][] res = new int[][]{{1,2},{2,3},{3,4},{1,3}};
+        System.out.println(removeDuplicates("xaaa"));
+    }
+
+    public static String removeDuplicates(String s) {
+        char[] res = new char[s.length()];
+        int i = 0;
+
+        for(char ch : s.toCharArray()){
+            if(i >= 1 && res[i-1] == ch){
+                res[i] = ' ';
+                i--;
+                continue;
+            }
+            res[i++] = ch;
+        }
+        return new String(res).trim();
     }
 
     public static String simplifyPath(String path) {
@@ -125,12 +143,12 @@ public class SimpleTest {
         if(maxA+maxB > Integer.MAX_VALUE)return Integer.MAX_VALUE;
         return (int) (maxA+maxB);
     }
-public static int reversea(int a, int b ){
+    public static int reversea(int a, int b ){
 
-    int maxA = Math.max(reverseOne(a), a);
-    int maxB = Math.max(reverseOne(b), b);
-    return maxA+maxB;
-}
+        int maxA = Math.max(reverseOne(a), a);
+        int maxB = Math.max(reverseOne(b), b);
+        return maxA+maxB;
+    }
 
     public static int reverseOne(int x){
         int ans = 0;
@@ -145,6 +163,23 @@ public static int reversea(int a, int b ){
             x /= 10;
         }
         return ans;
+    }
+
+    public static int eraseOverlapIntervals(int[][] intervals) {
+        if(intervals.length == 0)return 0;
+        Arrays.sort(intervals,Comparator.comparingInt(a->a[1]));
+
+        int count = 1;
+        int end = intervals[0][1];
+
+        for(int[] temp : intervals){
+            if(temp[0] >= end){
+                count++;
+                end = temp[1];
+            }
+        }
+
+        return intervals.length-count;
     }
 
 }

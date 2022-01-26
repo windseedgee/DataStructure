@@ -1,6 +1,10 @@
 package com.zhaipz.study.datastructure.controller;
 
+import com.zhaipz.study.datastructure.service.userinfo.UserInfo;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.transaction.interceptor.TransactionAspectSupport;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -14,10 +18,12 @@ import org.springframework.web.bind.annotation.RestController;
 @Slf4j
 public class ControllerTest {
 
+    @Autowired
+    UserInfo userInfo;
+
     @PostMapping(value = "/test")
     public String test(){
-        String str = "Hello World";
-        log.info(str);
-        return str;
+        userInfo.insertUser();
+        return "success";
     }
 }

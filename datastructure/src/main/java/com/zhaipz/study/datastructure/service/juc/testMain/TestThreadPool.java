@@ -3,6 +3,7 @@ package com.zhaipz.study.datastructure.service.juc.testMain;
 import lombok.extern.slf4j.Slf4j;
 
 import java.util.concurrent.*;
+import java.util.concurrent.locks.ReentrantLock;
 
 /**
  * @author zhaipz
@@ -13,18 +14,21 @@ import java.util.concurrent.*;
 @Slf4j
 public class TestThreadPool {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws InterruptedException {
         ExecutorService executorService = Executors.newFixedThreadPool(5);
         for(int i = 1;i < 100;i++){
             int finalI = i;
-            executorService.execute(new Thread(()->{
-                log.info("ThreadName: {}, param: {} res: {} ",Thread.currentThread().getName(),finalI,finalI);
-            },"----Thread"));
+            executorService.execute(new Thread(()-> log.info("ThreadName: {}, param: {} res: {} ",Thread.currentThread().getName(),finalI,finalI),"----Thread"));
         }
 
         executorService.shutdown();
 
         ExecutorService executorService1 = new ThreadPoolExecutor(5,5,30, TimeUnit.SECONDS, new ArrayBlockingQueue<>(5));
-
+        TestThread testThread = new TestThread();
+        Thread thread = new Thread(testThread);
+        thread.isInterrupted();
+        ReentrantLock lock1 = new ReentrantLock();
+        ReentrantLock lock2 = new ReentrantLock();
+        ConcurrentHashMap<Object, Object> concurrentHashMap = new ConcurrentHashMap<>();
     }
 }
