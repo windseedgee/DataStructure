@@ -1,0 +1,15 @@
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zhaipz.study.datastructure.dao.UserInfoMapper">
+
+    <select id="queryUser" parameterType="int" resultType="Map">
+        select ID,NAME,MASTER_SERV_ID,RUN_CODE
+        from UR_USER_INFO
+        where ID = #{ID}
+    </select>
+    <insert id="insertUserInfo" parameterType="Map">
+        insert into UR_USER_INFO (ID,NAME,MASTER_SERV_ID,RUN_CODE)
+        values (#{ID},#{NAME},#{MASTER_SERV_ID},#{RUN_CODE})
+    </insert>
+</mapper>
