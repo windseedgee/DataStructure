@@ -14,7 +14,7 @@ import java.util.*;
 public class HWTest {
     public static void main(String[] args) {
 
-        System.out.println(taxiFee());
+        System.out.println(highAndLowSort());
 
     }
 
@@ -318,5 +318,217 @@ public class HWTest {
         }
         //return Integer.parseInt(n,9);
         return res;
+    }
+
+    //8.判断字符串子序列
+    public static int searchLastIndex(){
+        Scanner in = new Scanner(System.in);
+        String t = in.nextLine();
+        String s = in.nextLine();
+        int m = t.length();
+        int n = s.length();
+        int index = n;
+        Map<Character,Integer> map = new LinkedHashMap<>();
+
+        if(m > 0 && n > 0){
+            for(int j = m-1;j >=0;j--){
+                for(int i = n-1;i >= 0;i--){
+                    if(t.charAt(j) == s.charAt(i) && index > i){
+                        index = i;
+                        map.put(t.charAt(j),index);
+                        break;
+                    }
+                }
+            }
+
+            int ros = 0;
+            for(int j = m-1;j >=0;j--){
+                if(!map.containsKey(t.charAt(j))){
+                    ros = -1;
+                    break;
+                }
+            }
+            if(ros == 0)return map.get(t.charAt(0));
+        }
+        return -1;
+    }
+
+    //9.按身高和体重排队
+    static class User implements Comparable<User>{
+        int index;
+        int h;
+        int w;
+
+        User(int i,int h,int w){
+            this.index = i;
+            this.h = h;
+            this.w = w;
+        }
+
+
+        @Override
+        public int compareTo(User o1) {
+            if(this.h != o1.h){
+                return this.h-o1.h;
+            }
+            if(this.w != o1.w){
+                return this.w-o1.w;
+            }
+            return this.index-o1.index;
+        }
+
+        public String toString(){
+            return String.valueOf(index);
+        }
+    }
+
+    public static User[] sortUsers(){
+        Scanner in = new Scanner(System.in);
+        int num = in.nextInt();
+        User[] res = new User[num];
+        int[] heights = new int[num];
+        int[] wigeths = new int[num];
+
+        for(int i = 0;i < num;i++){
+            heights[i] = in.nextInt();
+        }
+        for(int i = 0;i < num;i++){
+            wigeths[i] = in.nextInt();
+        }
+
+        for(int i = 0;i < num;i++){
+            res[i] = new User(i+1,heights[i],wigeths[i]);
+        }
+
+        Arrays.sort(res);
+        return res;
+    }
+
+    //10.快递运输
+    public static int maxNums(){
+        Scanner in = new Scanner(System.in);
+        String temp = in.nextLine();
+        int car = in.nextInt();
+        int res = 0;
+
+        String[] nums = temp.split(",");
+        int[] temp1 = new int[nums.length];
+        for(int i = 0;i < nums.length;i++){
+            temp1[i] = Integer.parseInt(nums[i]);
+        }
+
+        Arrays.sort(temp1);
+        for(int num : temp1){
+            if(car > num){
+                car -= num;
+                res++;
+            }else break;
+        }
+
+        return res;
+    }
+
+    //11.TLV解码
+    public static String tlv(){
+        Scanner in = new Scanner(System.in);
+        String key = in.nextLine();
+        String temp = in.nextLine();
+        String[] tlvs = temp.replaceAll("[a-z]","").split("[ ]");
+        int length;
+        String tag;
+        StringBuilder value;
+
+        for(int i = 0;i < tlvs.length;){
+            tag = tlvs[i];
+            value = new StringBuilder();
+            length = Integer.parseInt(tlvs[i+2]+tlvs[i+1],16);
+            for(int j = 1;j <= length;j++){
+                value.append(tlvs[i + 2 + j]).append(" ");
+            }
+            if(tag.equals(key)){
+                return value.toString().trim();
+            }
+            i = i+2+length+1;
+        }
+
+        return "null";
+    }
+
+    //12.字符串分割
+    public static String stringDiv(){
+        Scanner in = new Scanner(System.in);
+        int k = in.nextInt();
+        String temp = in.next();
+
+        String[] old = temp.split("-");
+        StringBuilder sb = new StringBuilder();
+        for(int i = 1;i < old.length;i++){
+            sb.append(old[i]);
+        }
+        int index = 0;
+        List<String> res = new ArrayList<>();
+        for(int i = k;i < sb.length()+k;i+=k){
+            if(i >= sb.length())i = sb.length();
+            String str = sb.substring(index,i);
+            res.add(format(str));
+            index = i;
+        }
+
+        return old[0]+"-"+String.join("-",res);
+    }
+
+    public static String format(String str){
+        char[] res = str.toCharArray();
+        int low = 0;
+        int up = 0;
+        for(char ch : res){
+            if(Character.isUpperCase(ch))up++;
+            if(Character.isLowerCase(ch))low++;
+        }
+        if(low > up){
+            str = str.toLowerCase();
+        }
+        if(low < up){
+            str = str.toUpperCase();
+        }
+
+        return str;
+    }
+
+    //13.组成最大数
+    public static String maxNum(){
+        PriorityQueue<String> queue = new PriorityQueue<>((x,y)->(y+x).compareTo(x+y));
+        Scanner in = new Scanner(System.in);
+        String temp = in.nextLine();
+        String[] temps = temp.split(",");
+        for(String str : temps){
+            queue.offer(str);
+        }
+
+        StringBuilder sb = new StringBuilder();
+        while(!queue.isEmpty()){
+            sb.append(queue.poll());
+        }
+
+        return sb.toString();
+    }
+
+    //14.高矮个子排队
+    public static String highAndLowSort(){
+        Scanner in = new Scanner(System.in);
+        List<Integer> list = new ArrayList<>();
+        while(in.hasNext()){
+            list.add(Integer.valueOf(in.next()));
+        }
+
+        for(int i = 0;i < list.size()-1;i++){
+            if((i%2 == 0 && list.get(i) < list.get(i+1)) || (i%2 == 1 && list.get(i) > list.get(i+1))){
+                int temp = list.get(i);
+                list.set(i,list.get(i+1));
+                list.set(i+1,temp);
+            }
+        }
+
+        return list.toString();
     }
 }
