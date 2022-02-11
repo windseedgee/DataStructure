@@ -14,7 +14,7 @@ import java.util.*;
 public class HWTest {
     public static void main(String[] args) {
 
-        System.out.println(highAndLowSort());
+        System.out.println(numGame());
 
     }
 
@@ -516,9 +516,16 @@ public class HWTest {
     //14.高矮个子排队
     public static String highAndLowSort(){
         Scanner in = new Scanner(System.in);
+        String temps = in.nextLine();
         List<Integer> list = new ArrayList<>();
-        while(in.hasNext()){
-            list.add(Integer.valueOf(in.next()));
+
+        for(String str : temps.split(" ")){
+            try{
+                list.add(Integer.valueOf(str));
+            }catch(Exception e){
+                return "[ ]";
+            }
+
         }
 
         for(int i = 0;i < list.size()-1;i++){
@@ -531,4 +538,90 @@ public class HWTest {
 
         return list.toString();
     }
+
+    //15.猴子爬山
+    public static int monkeyClimb(){
+        Scanner in = new Scanner(System.in);
+        int n = in.nextInt();
+        int[] dp = new int[n+1];
+        dp[1] = 1;
+        dp[2] = 1;
+        dp[3] = 2;
+        for(int i = 4;i <= n;i++){
+            dp[i] = dp[i-1] + dp[i-3];
+
+        }
+
+        return dp[n];
+    }
+
+    //16.分糖果
+    public static int divideCandy(){
+        Scanner in = new Scanner(System.in);
+        int n = in.nextInt();
+        in.close();
+        int count = 0;
+        for(int i = n;i != 1;i/=2,count++){
+            if(i == 3){
+                return count + 2;
+            }
+
+            if(i%2 != 0){
+                if((i+1)/2%2 == 0)i++;
+                else i--;
+                count++;
+            }
+        }
+
+        return count;
+    }
+
+    //17.报数游戏
+    public static List<Integer> numGame(){
+        List<Integer> res = new ArrayList<>();
+        Scanner in = new Scanner(System.in);
+        int keyNum = in.nextInt();
+        if(keyNum < 1 || keyNum > 100)return res;
+        Node head = new Node(1),pre = head;
+        for(int i = 2;i <= 100;i++){
+            pre.next = new Node(i);
+            pre = pre.next;
+        }
+        pre.next = head;
+
+        int num = 100,k = 1;
+        while(true){
+            k++;
+            pre = pre.next;
+            head = head.next;
+            if(k == keyNum){
+                pre.next = head.next;
+                head = pre.next;
+                k = 1;
+                num--;
+            }
+            if(num < keyNum){
+                pre = head;
+                do{
+                    res.add(head.val);
+                    head = head.next;
+                }while (pre != head);
+                break;
+            }
+        }
+
+        Collections.sort(res);
+        return res;
+    }
+
+    static class Node{
+        int val;
+        Node next;
+        Node(int val){
+            this.val = val;
+        }
+    }
+
+    //18.消消乐游戏
+
 }
