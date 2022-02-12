@@ -14,7 +14,7 @@ import java.util.*;
 public class HWTest {
     public static void main(String[] args) {
 
-        System.out.println(numGame());
+        System.out.println(deleteDoubleStr());
 
     }
 
@@ -623,5 +623,22 @@ public class HWTest {
     }
 
     //18.消消乐游戏
+    public static String deleteDoubleStr(){
+        Scanner in = new Scanner(System.in);
+        String temp = in.nextLine();
+        Stack<Character> stack = new Stack<>();
 
+        for(char ch : temp.toCharArray()){
+            if(!stack.isEmpty() && ch == stack.peek()){
+                stack.pop();
+            }else stack.push(ch);
+        }
+
+        StringBuilder res = new StringBuilder();
+        while(!stack.isEmpty()){
+            res.append(stack.pop());
+        }
+
+        return res.reverse().toString();
+    }
 }
