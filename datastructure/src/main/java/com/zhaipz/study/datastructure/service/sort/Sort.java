@@ -3,7 +3,7 @@ package com.zhaipz.study.datastructure.service.sort;
 /**
  * @author zhaipz
  * @ClassName: Sort
- * @Description: 经典排序算法
+ * @Description: 经典排序算法   Arrays.sort() 该排序实现原理（大致） 数组长度小于47 插入排序  小于256 快速排序   归并排序
  * @date 2022/1/10 11:46
  */
 public class Sort {
