@@ -1,3 +1,5 @@
-uav1 1 2 3
-uav1 1 2 3 1 1 1
-uav1 2 3 4 1 1 1
+plane1 1 2 3
+plane1 1 2 3 1 1 1
+plane1 2 3 4 1 1 1
+plane1 3 4 5
+plane1 2 3 4 1 1 1
