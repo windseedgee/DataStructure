@@ -35,12 +35,12 @@ class DatastructureApplicationTests {
     @Test
     @DisplayName("测试文件")
     void contextLoads() {
-        fileUtils.doUncompressFile("zhaipzTest.gz");
+        fileUtils.doUncompressFile("src/test/java/com/zhaipz/study/datastructure/BOSS3510_busAuthorization_20211014183141_FRATE9980.C001.gz");
     }
 
     @ParameterizedTest
-//    @ValueSource(strings = {"src/main/resources/plane1.txt", "src/main/resources/plane2.txt"})
-    @ValueSource(strings = {"src/main/resources/plane1.txt"})
+//    @ValueSource(strings = {"src/test/java/com/zhaipz/study/datastructure/plane1.txt", "src/test/java/com/zhaipz/study/datastructure/plane2.txt"})
+    @ValueSource(strings = {"src/test/java/com/zhaipz/study/datastructure/plane1.txt"})
     @DisplayName("HomeWork异常测试")
     void getUAVRecordsTest(String string){
 

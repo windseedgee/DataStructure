@@ -1,5 +1,7 @@
 package com.zhaipz.study.datastructure.service.IO;
 
+import common.utils.BusiException;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
 import java.io.FileInputStream;
@@ -15,17 +17,9 @@ import java.util.zip.GZIPInputStream;
  * @date 2022/2/23 10:57
  */
 @Component
+@Slf4j
 public class FileUtils {
 
-    public static String getExtension(String f) {
-        String ext = "";
-        int i = f.lastIndexOf('.');
-
-        if (i > 0 && i < f.length() - 1) {
-            ext = f.substring(i + 1);
-        }
-        return ext;
-    }
 
     public static String getFileName(String f) {
         String fname = "";
@@ -40,44 +34,36 @@ public class FileUtils {
     public void doUncompressFile(String inFileName) {
 
         try {
-
-            if (!getExtension(inFileName).equalsIgnoreCase("gz")) {
-                System.err.println("File name must have extension of \".gz\"");
-                return;
-            }
-
-            System.out.println("Opening the compressed file.");
-            GZIPInputStream in = null;
+            log.info("Opening the compressed file.");
+            GZIPInputStream in;
             try {
                 in = new GZIPInputStream(new FileInputStream(inFileName));
             } catch (FileNotFoundException e) {
-                System.err.println("File not found. " + inFileName);
-                return;
+                throw new BusiException("common","0001",e.toString());
             }
 
-            System.out.println("Open the output file.");
+            log.info("Open the output file.");
             String outFileName = getFileName(inFileName);
-            FileOutputStream out = null;
+            FileOutputStream out;
             try {
                 out = new FileOutputStream(outFileName);
             } catch (FileNotFoundException e) {
-                System.err.println("Could not write to file. " + outFileName);
-                return;
+                throw new BusiException("common","0002",e.toString());
             }
 
-            System.out.println("Transfering bytes from compressed file to the output file.");
+            log.info("Transfering bytes from compressed file to the output file.");
             byte[] buf = new byte[1024];
             int len;
             while ((len = in.read(buf)) > 0) {
                 out.write(buf, 0, len);
             }
 
-            System.out.println("Closing the file and stream");
+            log.info("Closing the file and stream");
             in.close();
             out.close();
 
         } catch (IOException e) {
-            e.printStackTrace();
+            throw new BusiException("common","0003",e.toString());
         }
 
     }
