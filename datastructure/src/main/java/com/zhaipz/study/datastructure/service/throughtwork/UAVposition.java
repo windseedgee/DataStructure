@@ -1,51 +1,64 @@
 package com.zhaipz.study.datastructure.service.throughtwork;
 
+import common.utils.BusiException;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.stereotype.Service;
+
 import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
+@Service
+@Slf4j
 public class UAVposition {
-    public static void main(String[] args) throws IOException {
-        List<String> res = getUAVRecords("D:\\IdeaProjects\\DataStructure\\datastructure\\src\\main\\resources\\test.txt");
-        System.out.println(res.get(3));
 
+    public String getUAVRecord(String file,int index) throws BusiException {
+        List<String> res = getAllUAVRecords(file);
+        if(index > res.size())return "Can Not Find : " + index;
+        return res.get(index-1);
     }
 
-    public static List<String> getUAVRecords(String fileName) throws IOException {
+    public static List<String> getAllUAVRecords(String fileName) throws BusiException {
         List<String> res = new ArrayList<>();
-//        Stream<String> stringStream = Files.lines(Paths.get(fileName));
-//        stringStream.parallel().forEachOrdered(res::add);
-        BufferedReader reader = new BufferedReader(new FileReader(fileName));
-        String str;
-        List<String> records = new ArrayList<>();
-        while((str = reader.readLine()) != null){
-            records.add(str);
+        //BufferedReader reader = new BufferedReader(new FileReader(fileName));
+        Stream<String> stringStream = null;
+
+        try {
+            stringStream = Files.lines(Paths.get(fileName));
+        }catch (Exception e){
+            throw new BusiException("service","0000","处理文件失败：" + e.toString());
         }
+
+        List<String> records;
+        records = stringStream.collect(Collectors.toList());
+
         UAV lasted = new UAV();
+        int index;
         for(int i = 0;i < records.size();i++){
             String[] temp = records.get(i).split(" ");
+            index = i+1;
             if(i == 0){
                 lasted = new UAV(temp[1],temp[2],temp[3]);
                 lasted.setName(temp[0]);
                 lasted.setAlive(true);
-                res.add(lasted.name + " " + i + " " + lasted.x + " " + lasted.y + " " + lasted.z);
+                res.add(lasted.name + " " + index + " " + lasted.x + " " + lasted.y + " " + lasted.z);
                 continue;
             }
 
             checkUAV(temp,lasted);
 
             if(!lasted.isAlive){
-                res.add("Error : " + i);
+                res.add("Error : " + index);
                 continue;
             }
             lasted.changeLocation(temp[4],temp[5],temp[6]);
-            res.add(lasted.name + " " + i + " " + lasted.x + " " + lasted.y + " " + lasted.z);
+            res.add(lasted.name + " " + index + " " + lasted.x + " " + lasted.y + " " + lasted.z);
         }
-
 
         return res;
     }
