@@ -17,13 +17,13 @@ import java.util.stream.Stream;
 @Slf4j
 public class UAVposition {
 
-    public String getUAVRecord(String file,int index) throws BusiException {
+    public String getUAVRecord(String file,int index){
         List<String> res = getAllUAVRecords(file);
         if(index > res.size())return "Can Not Find : " + index;
         return res.get(index-1);
     }
 
-    public static List<String> getAllUAVRecords(String fileName) throws BusiException {
+    public static List<String> getAllUAVRecords(String fileName){
         List<String> res = new ArrayList<>();
         //BufferedReader reader = new BufferedReader(new FileReader(fileName));
         Stream<String> stringStream = null;

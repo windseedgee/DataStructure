@@ -42,7 +42,7 @@ class DatastructureApplicationTests {
 //    @ValueSource(strings = {"src/main/resources/plane1.txt", "src/main/resources/plane2.txt"})
     @ValueSource(strings = {"src/main/resources/plane1.txt"})
     @DisplayName("HomeWork异常测试")
-    void getUAVRecordsTest(String string) throws BusiException {
+    void getUAVRecordsTest(String string){
 
         String res = uaVposition.getUAVRecord(string,1);
         Assertions.assertEquals("plane1 1 1 2 3",res);
