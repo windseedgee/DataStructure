@@ -33,9 +33,15 @@ class DatastructureApplicationTests {
     }
 
     @Test
-    @DisplayName("测试文件")
-    void contextLoads() {
-        fileUtils.doUncompressFile("src/test/java/com/zhaipz/study/datastructure/BOSS3510_busAuthorization_20211014183141_FRATE9980.C001.gz");
+    @DisplayName("解压gz文件测试")
+    void doUncompressFileTest() {
+        fileUtils.doUncompressFile("src/test/java/com/zhaipz/study/datastructure/0001test.gz");
+    }
+
+    @Test
+    @DisplayName("压缩gz文件测试")
+    void doCompressFileTest() {
+        fileUtils.doCompressFile("src/test/java/com/zhaipz/study/datastructure/0001test");
     }
 
     @ParameterizedTest

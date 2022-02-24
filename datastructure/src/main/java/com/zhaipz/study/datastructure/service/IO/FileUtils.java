@@ -5,10 +5,10 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.zip.GZIPInputStream;
+import java.util.zip.GZIPOutputStream;
 
 /**
  * @author zhaipz
@@ -19,6 +19,28 @@ import java.util.zip.GZIPInputStream;
 @Component
 @Slf4j
 public class FileUtils {
+
+    public void doCompressFile(String inFileName) {
+        String outFileName = inFileName + ".gz";
+        try {
+            log.info("compressFile start : " + outFileName);
+            FileInputStream in = new FileInputStream(inFileName);
+            GZIPOutputStream out = new GZIPOutputStream(new FileOutputStream(outFileName));
+
+            byte[] buf = new byte[1024];
+            int len;
+            while ((len = in.read(buf)) != -1){
+                out.write(buf,0,len);
+            }
+
+            in.close();
+            out.finish();
+            out.close();
+            log.info("compressFile end : " + outFileName);
+        }catch (IOException e){
+            throw new BusiException("common","0004",e.toString());
+        }
+    }
 
 
     public static String getFileName(String f) {
@@ -34,27 +56,16 @@ public class FileUtils {
     public void doUncompressFile(String inFileName) {
 
         try {
-            log.info("Opening the compressed file.");
-            GZIPInputStream in;
-            try {
-                in = new GZIPInputStream(new FileInputStream(inFileName));
-            } catch (FileNotFoundException e) {
-                throw new BusiException("common","0001",e.toString());
-            }
+            log.info("Opening the compressed file");
+            GZIPInputStream in = new GZIPInputStream(new FileInputStream(inFileName));
 
-            log.info("Open the output file.");
+            log.info("Open the output file");
             String outFileName = getFileName(inFileName);
-            FileOutputStream out;
-            try {
-                out = new FileOutputStream(outFileName);
-            } catch (FileNotFoundException e) {
-                throw new BusiException("common","0002",e.toString());
-            }
+            FileOutputStream out = new FileOutputStream(outFileName);
 
-            log.info("Transfering bytes from compressed file to the output file.");
             byte[] buf = new byte[1024];
             int len;
-            while ((len = in.read(buf)) > 0) {
+            while ((len = in.read(buf)) != -1) {
                 out.write(buf, 0, len);
             }
 
