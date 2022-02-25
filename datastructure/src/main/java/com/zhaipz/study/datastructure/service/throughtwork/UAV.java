@@ -32,6 +32,10 @@ public class UAV {
         this.z += Integer.parseInt(z);
     }
 
+    public String toString(int index){
+        return this.name + " " + index + " " + this.x + " " + this.y + " " + this.z;
+    }
+
     public String getName() {
         return name;
     }

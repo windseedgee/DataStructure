@@ -17,9 +17,13 @@ import java.util.stream.Stream;
 @Slf4j
 public class UAVposition {
 
+    private static final String NOT_FOUND = "Can Not Find : ";
+
+    private static final String ERROR = "Error : ";
+
     public String getUAVRecord(String file,int index){
         List<String> res = getAllUAVRecords(file);
-        if(index > res.size())return "Can Not Find : " + index;
+        if(index > res.size())return NOT_FOUND + index;
         return res.get(index-1);
     }
 
@@ -46,18 +50,18 @@ public class UAVposition {
                 lasted = new UAV(temp[1],temp[2],temp[3]);
                 lasted.setName(temp[0]);
                 lasted.setAlive(true);
-                res.add(lasted.name + " " + index + " " + lasted.x + " " + lasted.y + " " + lasted.z);
+                res.add(lasted.toString(index));
                 continue;
             }
 
             checkUAV(temp,lasted);
 
             if(!lasted.isAlive){
-                res.add("Error : " + index);
+                res.add(ERROR + index);
                 continue;
             }
             lasted.changeLocation(temp[4],temp[5],temp[6]);
-            res.add(lasted.name + " " + index + " " + lasted.x + " " + lasted.y + " " + lasted.z);
+            res.add(lasted.toString(index));
         }
 
         return res;
