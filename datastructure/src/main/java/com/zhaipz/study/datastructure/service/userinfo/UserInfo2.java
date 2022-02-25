@@ -7,6 +7,7 @@ import org.springframework.transaction.annotation.Isolation;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.annotation.Resource;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -23,7 +24,6 @@ public class UserInfo2 implements IUserInfo{
     UserInfoMapper userInfoMapper;
 
     @Override
-
     @Transactional(propagation = Propagation.NEVER)
     public void insertUser() {
         Map<String,Object> map = new HashMap<>();
@@ -33,5 +33,10 @@ public class UserInfo2 implements IUserInfo{
         map.put("RUN_CODE","Q");
         userInfoMapper.insertUserInfo(map);
         throw new RuntimeException("人为引起的失败");
+    }
+
+    @Override
+    public Map<String, Object> queryUser(int id) {
+        return null;
     }
 }

@@ -1,6 +1,7 @@
 package com.zhaipz.study.datastructure.dao;
 
-import org.springframework.stereotype.Component;
+import org.apache.ibatis.annotations.Mapper;
+import org.springframework.stereotype.Repository;
 
 import java.util.Map;
 
@@ -10,8 +11,9 @@ import java.util.Map;
  * @Description: 用户信息操作
  * @date 2022/1/26 9:06
  */
-@Component
+//@Mapper
+@Repository
 public interface UserInfoMapper {
-    Map<String,Object> queryUser(String id);
+    Map<String,Object> queryUser(int id);
     void insertUserInfo(Map<String,Object> map);
 }

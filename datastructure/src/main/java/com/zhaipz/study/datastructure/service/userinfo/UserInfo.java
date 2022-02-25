@@ -9,6 +9,7 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.transaction.interceptor.TransactionAspectSupport;
 
+import javax.annotation.Resource;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -26,6 +27,12 @@ public class UserInfo implements IUserInfo{
     UserInfoMapper userInfoMapper;
     @Autowired
     UserInfo2 userInfo2;
+
+    @Override
+    public Map<String,Object> queryUser(int id) {
+        Map<String,Object> map = userInfoMapper.queryUser(id);
+        return map;
+    }
 
     @Override
     @Transactional

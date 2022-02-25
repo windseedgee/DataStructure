@@ -1,16 +1,7 @@
 spring:
+  profiles:
+    active: @spring.profiles.active@
+
   application:
     name: zhaipz-datastructure
-  datasource:
-    driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://localhost:3306/zhaipz?serverTimezone=Asia/Shanghai
-    username: root
-    password: root
-logging:
-  level:
-    src.main: info
-server:
-  port: 8081
 
-mybatis:
-  mapper-locations: classpath:mapping/*.xml
