@@ -65,4 +65,54 @@ public class ClassicsDynamic {
         memo.put(key,res);
         return res;
     }
+
+    /**
+     * @Title: 122. 买卖股票的最佳时机 I
+     * @Description:
+     * @inParam 第 i 个元素 prices[i] 表示一支给定股票第 i 天的价格。
+     * @return
+     * @throws
+     */
+    public int maxProfit(int[] prices) {
+        int dp0 = 0;
+        int dp1 = Integer.MIN_VALUE;
+
+        for (int price : prices) {
+            dp0 = Math.max(dp0, dp1 + price);
+            dp1 = Math.max(dp1, -price);
+        }
+        return dp0;
+    }
+
+    public int maxProfit(int[] prices,int fee) {
+        int dp0 = 0;
+        int dp1 = Integer.MIN_VALUE;
+
+        for (int price : prices) {
+            dp0 = Math.max(dp0, dp1 + price);
+            dp1 = Math.max(dp1, dp0-fee-price);
+        }
+        return dp0;
+    }
+
+    /**
+     * @Title: 198. 打家劫舍 I
+     * @Description: 如果两间相邻的房屋在同一晚上被小偷闯入，系统会自动报警。
+     * @inParam
+     * @return
+     * @throws
+     */
+    public int rob(int[] nums) {
+        int dp = 0;
+        int dp_1 = 0;
+        int dp_2 = 0;
+
+        for(int num : nums){
+            dp = Math.max(dp_2+num,dp_1);
+            dp_2 = dp_1;
+            dp_1 = dp;
+        }
+
+        return dp;
+    }
 }

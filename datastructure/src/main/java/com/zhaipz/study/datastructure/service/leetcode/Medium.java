@@ -490,7 +490,33 @@ public class Medium {
     /**
      * @Title: 92. 反转链表
      */
+    public ListNode reverseBetween(ListNode head, int left, int right) {
+        ListNode rl = head,pre = null;
+        while(left > 1){
+            pre = rl;
+            rl = rl.next;
+            left--;
+            right--;
+        }
 
+        ListNode lastHead = pre;
+        ListNode tail = rl;
+        while(right > 0){
+            ListNode temp = rl.next;
+            rl.next = pre;
+            pre = rl;
+            rl = temp;
+            right--;
+        }
+        if(lastHead != null){
+            lastHead.next = pre;
+        }else {
+            head = pre;
+        }
+
+        tail.next = rl;
+        return head;
+    }
 
     public static class ListNode {
         int val;

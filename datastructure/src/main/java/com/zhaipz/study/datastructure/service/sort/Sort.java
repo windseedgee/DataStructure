@@ -113,7 +113,7 @@ public class Sort {
         int mid = l + (r-l/2);
 
         mergeSort(array,l,mid);
-        mergeSort(array,l,mid);
+        mergeSort(array,mid+1,r);
         merge(array,l,mid,r);
     }
 
@@ -139,8 +139,6 @@ public class Sort {
             temp[k++] = array[j++];
         }
 
-        for(int m = 0;m < temp.length;m++){
-            array[l+m] = temp[m];
-        }
+        if (temp.length >= 0) System.arraycopy(temp, 0, array, l, temp.length);
     }
 }

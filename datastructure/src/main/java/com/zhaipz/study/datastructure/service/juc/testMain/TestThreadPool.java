@@ -15,13 +15,16 @@ import java.util.concurrent.locks.ReentrantLock;
 public class TestThreadPool {
 
     public static void main(String[] args) throws InterruptedException {
-        ExecutorService executorService = Executors.newFixedThreadPool(5);
+        ExecutorService fixedThreadPool = Executors.newFixedThreadPool(5);
+        ExecutorService cachedThreadPool = Executors.newCachedThreadPool(Executors.defaultThreadFactory());
+        ExecutorService singleThreadExecutor = Executors.newSingleThreadExecutor(Executors.defaultThreadFactory());
+        ExecutorService scheduledThreadPool = Executors.newScheduledThreadPool(5);
         for(int i = 1;i < 100;i++){
             int finalI = i;
-            executorService.execute(new Thread(()-> log.info("ThreadName: {}, param: {} res: {} ",Thread.currentThread().getName(),finalI,finalI),"----Thread"));
+            fixedThreadPool.execute(new Thread(()-> log.info("ThreadName: {}, param: {} res: {} ",Thread.currentThread().getName(),finalI,finalI),"----Thread"));
         }
 
-        executorService.shutdown();
+        fixedThreadPool.shutdown();
 
         ExecutorService executorService1 = new ThreadPoolExecutor(5,5,30, TimeUnit.SECONDS, new ArrayBlockingQueue<>(5));
         TestThread testThread = new TestThread();
