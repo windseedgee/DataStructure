@@ -13,8 +13,8 @@ import java.util.*;
 @Slf4j
 public class HWTest {
     public static void main(String[] args) {
-
-        System.out.println(deleteDoubleStr());
+        tlvs();
+        //System.out.println(deleteDoubleStr());
 
     }
 
@@ -640,5 +640,78 @@ public class HWTest {
         }
 
         return res.reverse().toString();
+    }
+
+    //------------------------------------分割线------------------------------------
+//    高频考试原题
+//    5键键盘
+//     TLV解码
+//    VLAN资源池
+//    拼接URL
+//    分班
+//    磁盘容量排序
+//    单词接龙
+//    内存资源分配
+//    相对开音节
+//    喊7的次数重排
+//    字符串加密
+//    字符串变换最小字符串
+//    最长连续子序列
+//     工号
+
+    //1、5键键盘
+    public static void fiveKeyBoard(){
+        Scanner in = new Scanner(System.in);
+        while(in.hasNext()){
+            String str = in.nextLine();
+            int count = 0,selCount = 0,copyCount = 0;
+            for(char key : str.toCharArray()){
+                if(key == '1'){
+                    count = selCount>0?1:count+1;
+                    selCount = 0;
+                }else if(key == '2'){
+                    copyCount = selCount;
+                }else if(key == '3'){
+                    count -= selCount;
+                    copyCount = selCount;
+                    selCount = 0;
+                }else if(key == '4'){
+                    count = count-selCount+copyCount;
+                    selCount = 0;
+                }else if(key == '5'){
+                    selCount = count;
+                }
+            }
+            System.out.println(count);
+        }
+    }
+
+    //2、TLV解码
+    public static void tlvs(){
+        Scanner in = new Scanner(System.in);
+        while(in.hasNext()){
+            String key = in.nextLine();
+            String[] tlvs = in.nextLine().replaceAll("[a-z]","").split("[ ]");
+            String tag;
+            int len;
+            StringBuilder value;
+            for(int i = 0;i < tlvs.length;){
+                value = new StringBuilder();
+                tag = tlvs[i];
+                len = Integer.parseInt(tlvs[i+2]+tlvs[i+1],16);
+                for(int j = 1;j <= len;j++){
+                    value.append(tlvs[i+2+j]).append(" ");
+                }
+                if(tag.equals(key)){
+                    System.out.println(value);
+                }
+                i = i+2+len+1;
+            }
+        }
+    }
+
+    //2、VLAN资源池
+    public static void vlan(){
+
     }
 }
