@@ -3,6 +3,7 @@ package com.zhaipz.study.datastructure.service;
 import lombok.extern.slf4j.Slf4j;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 /**
  * @author zhaipz
@@ -13,7 +14,7 @@ import java.util.*;
 @Slf4j
 public class HWTest {
     public static void main(String[] args) {
-        tlvs();
+        loginNo();
         //System.out.println(deleteDoubleStr());
 
     }
@@ -710,8 +711,266 @@ public class HWTest {
         }
     }
 
-    //2、VLAN资源池
+    //3、VLAN资源池
     public static void vlan(){
-
+        Scanner in = new Scanner(System.in);
+        while(in.hasNext()){
+            String[] vlans = in.nextLine().split(",");
+            String key = in.nextLine();
+            Set<Integer> set = new HashSet<>();
+            for(String vlan : vlans){
+                if(vlan.length() == 0)continue;
+                String[] temp = vlan.split("-");
+                if(temp.length == 2){
+                    for(int i = Integer.parseInt(temp[0]);i <= Integer.parseInt(temp[1]);i++){
+                        set.add(i);
+                    }
+                }else {
+                    set.add(Integer.parseInt(temp[0]));
+                }
+            }
+            set.remove(Integer.parseInt(key));
+            List<Integer> list = new ArrayList<>(set);
+            if(list.size() == 1){
+                System.out.println(list.get(0));
+                continue;
+            }
+            Collections.sort(list);
+            StringBuilder res = new StringBuilder();
+            for (int i = 0; i < list.size()-1; i++) {
+                if(list.get(i)+1 == list.get(i + 1)){
+                    res.append(",").append(list.get(i));
+                    while(i < list.size()-1 && list.get(i)+1 == list.get(i+1)){
+                        i++;
+                    }
+                    res.append("-").append(list.get(i));
+                }else {
+                    res.append(",").append(list.get(i));
+                }
+                if(i == list.size()-2){
+                    res.append(",").append(list.get(i+1));
+                }
+            }
+            if(res.length() > 0 && res.charAt(0) == ',')res.deleteCharAt(0);
+            System.out.println(res);
+        }
     }
+
+    //4、拼接URL
+    public static void url(){
+        Scanner in = new Scanner(System.in);
+        while (in.hasNext()){
+            String url = in.nextLine().replaceFirst(",","/");
+            url = url.replace("//","/");
+            url = url.replace("//","/");
+            System.out.println(url);
+        }
+    }
+
+    //5、分班
+    public static void fenBan(){
+        Scanner in = new Scanner(System.in);
+        while(in.hasNext()){
+            try {
+                String[] students = in.nextLine().split(" ");
+                List<Integer> l1 = new ArrayList<>();
+                List<Integer> l2 = new ArrayList<>();
+                List<Integer> l0 = null;
+                boolean flag = true;
+                for(int i = students.length-1;i >= 0;i--){
+                    int num = Integer.parseInt(students[i].substring(0,students[i].indexOf("/")));
+                    if(num < 0 || num > 999){
+                        throw new Exception();
+                    }
+                    flag = students[i].endsWith("Y");
+                    if(i == students.length-1)l0 = l1;
+                    l0.add(num);
+                    if(!flag){
+                        l0 = l0==l1?l2:l1;
+                    }
+                }
+                Collections.sort(l1);
+                Collections.sort(l2);
+                if(new HashSet(l1).size() < l1.size() || new HashSet(l2).size() < l2.size()){
+                    throw new Exception();
+                }
+                if(l2.size() != 0 && l1.get(0) > l2.get(0)){
+                    System.out.println(l2.stream().map(String::valueOf).collect(Collectors.joining(" ")));
+                    System.out.println(l1.stream().map(String::valueOf).collect(Collectors.joining(" ")));
+                }else {
+                    System.out.println(l1.stream().map(String::valueOf).collect(Collectors.joining(" ")));
+                    System.out.println(l2.stream().map(String::valueOf).collect(Collectors.joining(" ")));
+                }
+            }catch (Exception e){
+                System.out.println("error");
+            }
+        }
+    }
+
+    //6、磁盘容量排序
+    public static void sortDisk(){
+        Scanner in = new Scanner(System.in);
+        while(in.hasNext()){
+            int n = Integer.parseInt(in.nextLine());
+            Map<Integer,String> map = new HashMap<>();
+            for(int i = 0;i < n;i++){
+                String temp = in.nextLine();
+                int num = getNum(temp);
+                if(map.containsKey(num)){
+                    map.put(num+1,temp);
+                }else {
+                    map.put(num,temp);
+                }
+            }
+            List<Integer> list = new ArrayList<>(map.keySet());
+            Collections.sort(list);
+            list.forEach(a ->System.out.println(map.get(a)));
+        }
+    }
+
+    public static int getNum(String s){
+        int res = 0,count = 0;
+        for(char ch : s.toCharArray()){
+            if(Character.isDigit(ch)){
+                res = res*10 + ch-'0';
+            }else if(ch == 'T'){
+                res = res * 1024 * 1024;
+                count += res;
+                res = 0;
+            }else if(ch == 'G'){
+                res = res * 1024;
+                count += res;
+                res = 0;
+            }else{
+                count += res;
+                res = 0;
+            }
+        }
+        return count;
+    }
+
+    //7、单词接龙
+
+    //8、内存资源分配
+    public static void memoRes(){
+        Scanner in = new Scanner(System.in);
+        while(in.hasNext()){
+            String[] memos = in.nextLine().split(",");
+            String[] nums = in.nextLine().split(",");
+            Map<Integer,Integer> map = new HashMap<>();
+            for(String memo : memos){
+                String[] temp = memo.split(":");
+                map.put(Integer.parseInt(temp[0]),Integer.parseInt(temp[1]));
+            }
+            for(int i = 0;i < nums.length;i++){
+                if(i > 0)System.out.print(",");
+                int n = Integer.parseInt(nums[i]);
+                List<Integer> list = new ArrayList<>();
+                for(Integer key : map.keySet()){
+                    if(key >= n)list.add(key);
+                }
+                Collections.sort(list);
+                if(list.size() > 0){
+                    int a = map.get(list.get(0))-1;
+                    if(a == 0){
+                        map.remove(list.get(0));
+                    }else {
+                        map.put(list.get(0),a);
+                    }
+                    System.out.print("true");
+                }else {
+                    System.out.print("false");
+                }
+            }
+        }
+    }
+
+    //9、相对开音节
+
+    //10、喊7
+    public static void seven(){
+        Scanner in = new Scanner(System.in);
+        while(in.hasNext()){
+            String[] nums = in.nextLine().split(" ");
+            int count = 0,num = 6;
+            for(String n : nums){
+                count += Integer.parseInt(n);
+            }
+            for(int j = 0;j < count;){
+                num++;
+                if(num%7 == 0 || (num+"").contains("7")){
+                    j++;
+                }
+            }
+            int[] res = new int[nums.length];
+            for(int i = 1;i <= num;i++){
+                if(i%7 == 0 || (i+"").contains("7")){
+                    res[i%nums.length]++;
+                }
+            }
+            for(int i = 1;i < res.length;i++){
+                System.out.print(res[i] + " ");
+            }
+            System.out.println(res[0]);
+        }
+    }
+
+    //11、字符串加密
+
+    //12、字符串变换最小字符串
+    public static void changeMin(){
+        Scanner in = new Scanner(System.in);
+        while(in.hasNext()){
+            String temp = in.nextLine();
+            char[] x = temp.toCharArray();
+            int minIndex = 0;
+            int minValue = x[0];
+            for(int i = 0;i < x.length;i++){
+                if(x[i] < minValue){
+                    minIndex = i;
+                    minValue = x[i];
+                }
+            }
+            int y = x[0];
+            x[0] = (char) minValue;
+            x[minIndex] = (char) y;
+            System.out.println(new String(x));
+        }
+    }
+    //13、最长连续子序列
+    public static void longest(){
+        Scanner in = new Scanner(System.in);
+        while(in.hasNext()){
+            String[] strs = in.nextLine().split(",");
+            int sum = Integer.parseInt(in.nextLine());
+            int max = -1;
+            for(int i = 0;i < strs.length;i++){
+                int temp = sum;
+                for(int j = i;j < strs.length;j++){
+                    temp -= Integer.parseInt(strs[j]);
+                    if(temp == 0){
+                        max = Math.max(max, j - i+1);
+                    }
+                }
+            }
+            System.out.println(max);
+        }
+    }
+
+    //14、工号
+    public static void loginNo(){
+        Scanner in = new Scanner(System.in);
+        while (in.hasNext()){
+            long num = Long.parseLong(in.nextLine());
+            int letter = Integer.parseInt(in.nextLine());
+            int z = 1;
+            while((int) Math.pow(26,letter)*Math.pow(10,z) < num){
+                z++;
+            }
+            System.out.println(z);
+        }
+    }
+
+    //15、区间交集
+
 }
