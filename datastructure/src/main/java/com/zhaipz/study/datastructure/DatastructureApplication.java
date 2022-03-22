@@ -6,7 +6,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.scheduling.annotation.EnableAsync;
 
 @MapperScan("com.zhaipz.study.datastructure.dao")
-@EnableAsync
+//@EnableAsync
 @SpringBootApplication
 public class DatastructureApplication {
 

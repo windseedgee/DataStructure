@@ -1,8 +1,11 @@
 package com.zhaipz.study.datastructure.dao;
 
+import com.zhaipz.study.datastructure.entity.User;
 import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Repository;
 
+import javax.jws.soap.SOAPBinding;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -16,4 +19,5 @@ import java.util.Map;
 public interface UserInfoMapper {
     Map<String,Object> queryUser(int id);
     void insertUserInfo(Map<String,Object> map);
+    List<User> queryUserInfo(User user);
 }

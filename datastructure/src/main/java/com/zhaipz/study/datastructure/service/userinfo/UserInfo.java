@@ -1,6 +1,7 @@
 package com.zhaipz.study.datastructure.service.userinfo;
 
 import com.zhaipz.study.datastructure.dao.UserInfoMapper;
+import com.zhaipz.study.datastructure.entity.User;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.catalina.mapper.Mapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +12,7 @@ import org.springframework.transaction.interceptor.TransactionAspectSupport;
 
 import javax.annotation.Resource;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -31,6 +33,12 @@ public class UserInfo implements IUserInfo{
     @Override
     public Map<String,Object> queryUser(int id) {
         Map<String,Object> map = userInfoMapper.queryUser(id);
+        return map;
+    }
+
+    @Override
+    public List<User> queryUser(User user) {
+        List<User> map = userInfoMapper.queryUserInfo(user);
         return map;
     }
 

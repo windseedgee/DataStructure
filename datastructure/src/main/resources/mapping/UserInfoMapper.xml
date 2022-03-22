@@ -3,6 +3,17 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.zhaipz.study.datastructure.dao.UserInfoMapper">
 
+    <resultMap id="userInfo" type="com.zhaipz.study.datastructure.entity.User">
+        <result property="id" column="ID"/>
+        <result property="name" column="NAME"/>
+        <result property="masterServId" column="MASTER_SERV_ID"/>
+        <result property="runCode" column="RUN_CODE"/>
+    </resultMap>
+    <select id="queryUserInfo" parameterType="com.zhaipz.study.datastructure.entity.User" resultMap="userInfo">
+        select ID,NAME,MASTER_SERV_ID,RUN_CODE
+        from UR_USER_INFO
+        where MASTER_SERV_ID = #{masterServId}
+    </select>
     <select id="queryUser" parameterType="int" resultType="Map">
         select ID,NAME,MASTER_SERV_ID,RUN_CODE
         from UR_USER_INFO
