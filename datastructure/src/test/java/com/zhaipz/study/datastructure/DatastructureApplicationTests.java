@@ -1,6 +1,7 @@
 package com.zhaipz.study.datastructure;
 
 import com.zhaipz.study.datastructure.service.IO.FileUtils;
+import com.zhaipz.study.datastructure.service.TestHello;
 import com.zhaipz.study.datastructure.service.throughtwork.UAVposition;
 import common.utils.BusiException;
 import lombok.extern.slf4j.Slf4j;
@@ -21,6 +22,9 @@ class DatastructureApplicationTests {
 
     @Autowired
     UAVposition uaVposition;
+
+    @Autowired
+    TestHello testHello;
 
     @BeforeEach
     public void init() {
@@ -75,6 +79,12 @@ class DatastructureApplicationTests {
         log.info(res);
     }
 
-
+    @Test
+    @DisplayName("日常测试")
+    void helloTest(){
+        int[][] x = new int[][]{{1,3,5,7},{10,11,16,20},{23,30,34,60}};
+        Assertions.assertTrue(testHello.searchMatrix(x, 3));
+        Assertions.assertFalse(testHello.searchMatrix(x, 4));
+    }
 
 }

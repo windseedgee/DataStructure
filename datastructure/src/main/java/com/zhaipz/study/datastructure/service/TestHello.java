@@ -1,7 +1,10 @@
 package com.zhaipz.study.datastructure.service;
 
+import com.zhaipz.study.datastructure.dto.ListNode;
 import com.zhaipz.study.datastructure.dto.Student;
+import com.zhaipz.study.datastructure.dto.TreeNode;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.stereotype.Component;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -15,8 +18,9 @@ import java.util.concurrent.ConcurrentHashMap;
  *  *  * @date 2021/4/29 16:58
  */
 @Slf4j
+@Component
 public class TestHello {
-    public static void main(String[] args) throws ParseException {
+
 //        String x = "xx";
 //        TreeNode treeNode = new TreeNode(1,new TreeNode(2),new TreeNode(3));
 //        log.info("测试assert:{}",treeNode.getRight().getRight());
@@ -79,7 +83,7 @@ public class TestHello {
 //
 //        log.info("main s1 : {}",s1.getAge());
 //        log.info("main s2 : {}",s2.getAge());
-    }
+
 
     /**
      * 根据日期获取 星期 （2019-05-06 ——> 星期一）
@@ -323,4 +327,26 @@ public class TestHello {
 
         return new ArrayList<>(map.values());
     }
+
+    public boolean searchMatrix(int[][] matrix, int target) {
+        for(int[] ma : matrix){
+            if(ma[0] <= target && target <= ma[ma.length-1]){
+                int l = 0,r = ma.length-1;
+                while(l <= r){
+                    int mid = l + (r-l)/2;
+                    if(ma[mid] == target)return true;
+                    if(ma[mid] < target){
+                        l = mid+1;
+                    }else {
+                        r = mid-1;
+                    }
+                }
+            }
+        }
+
+        return false;
+    }
+
+
+
 }
