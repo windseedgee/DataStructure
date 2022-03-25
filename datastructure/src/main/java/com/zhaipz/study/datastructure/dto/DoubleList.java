@@ -7,8 +7,9 @@ package com.zhaipz.study.datastructure.dto;
  * @date 2021/5/10 10:35
  */
 public class DoubleList {
-    DoubleNode head,tail;
-    int size;
+    public DoubleNode head;
+    public DoubleNode tail;
+    public int size;
 
     public DoubleList() {
         head = new DoubleNode(0,0);

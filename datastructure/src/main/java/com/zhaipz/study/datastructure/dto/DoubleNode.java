@@ -11,8 +11,10 @@ import lombok.Data;
 @Data
 public class DoubleNode {
 
-    DoubleNode next,prev;
-    int key,val;
+    public DoubleNode next;
+    public DoubleNode prev;
+    public int key;
+    public int val;
 
     public DoubleNode(int key, int val){
         this.key = key;
