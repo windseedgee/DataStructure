@@ -1,10 +1,10 @@
 package com.zhaipz.study.datastructure.service;
 
+import java.util.Arrays;
+import java.util.Comparator;
+import java.util.Deque;
+import java.util.LinkedList;
 import lombok.extern.slf4j.Slf4j;
-
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-import java.util.*;
 
 /**
  * @author zhaipz
@@ -28,12 +28,20 @@ public class SimpleTest {
 //
 //        log.info("结果{}",d);
 
-        DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyyMMddHHmmss");
-        LocalDateTime localDateTime = LocalDateTime.now();
-        System.out.println(dateTimeFormatter.format(localDateTime));
-        int a = Integer.MAX_VALUE,b = Integer.MAX_VALUE;
-        int[][] res = new int[][]{{1,2},{2,3},{3,4},{1,3}};
-        System.out.println(removeDuplicates("xaaa"));
+        Integer x = new Integer(1333);
+        Integer y = new Integer(1333);
+        Integer z = 12;
+        Integer r = new Integer(12);
+        Integer t = new Integer("12");
+        System.out.println(x == Integer.parseInt("1333"));
+        System.out.println(x == y);
+        System.out.println(z == t);
+//        DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyyMMddHHmmss");
+//        LocalDateTime localDateTime = LocalDateTime.now();
+//        System.out.println(dateTimeFormatter.format(localDateTime));
+//        int a = Integer.MAX_VALUE,b = Integer.MAX_VALUE;
+//        int[][] res = new int[][]{{1,2},{2,3},{3,4},{1,3}};
+//        System.out.println(removeDuplicates("xaaa"));
     }
 
     public static String removeDuplicates(String s) {
