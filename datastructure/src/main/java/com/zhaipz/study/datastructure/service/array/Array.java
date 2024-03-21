@@ -1,8 +1,5 @@
 package com.zhaipz.study.datastructure.service.array;
 
-import javax.xml.soap.Node;
-import java.util.Deque;
-import java.util.LinkedList;
 
 /**
  * @author zhaipz
@@ -13,9 +10,9 @@ import java.util.LinkedList;
 public class Array {
 
     public static void main(String[] args) {
-        System.out.println("xxxx");
-        Deque<Integer> xStack = new LinkedList<>();
-        Node node;
+//        System.out.println("xxxx");
+//        Deque<Integer> xStack = new LinkedList<>();
+//        Node node;
 
     }
 }
