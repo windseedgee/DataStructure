@@ -13,18 +13,10 @@ public class TestVirtualThread {
 
     public static void main(String[] args) throws InterruptedException {
 
-        String complianceText = "<h1>California Air Resource Board Compliance<h1>\n\n" +
-            "The State of California requires that all carriers hauling loads in California comply with all applicable regulations of the California Air Resources Board (CARB). These regulations set requirements for heavy-duty tractors and trailers and other vehicles based on weight and type. Regulations include CARB’s Heavy Duty Vehicle Greenhouse Gas (TTGHG) Emission Reduction Regulations, Transport Refrigeration Unit Airborne Toxic Control Measure (TRU ATCM) in use regulations, Advanced Clean Fleets (ACF) regulations, Truck and Bus Regulation (TBR), Clean Truck Check (Heavy Duty Inspection/Maintenance) and Periodic Smoke Inspection Program.\n\n"
-            +
-            "NEXT Trucking requires that all carriers hauling loads for NEXT in California comply with all applicable CARB regulations.\n\n"
-            +
-            "Your company is responsible for ensuring its annual attestation remains accurate while booking and transporting loads with NEXT. If your company falls out of compliance, you must immediately notify us at <a href=\"mailto:compliance@nexttrucking.com\">compliance@nexttrucking.com</a>";
-        System.out.println(complianceText);
-
-//        System.setProperty("jdk.virtualThreadScheduler.parallelism", "4");
+        System.setProperty("jdk.virtualThreadScheduler.parallelism", "4");
 //        System.out.println(Runtime.getRuntime().availableProcessors());
 
-//        testVirtualThread();
+        testVirtualThread();
 //        testVirtualThread2();
 
         //1000
